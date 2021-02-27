@@ -19,11 +19,15 @@ import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -31,36 +35,28 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.androiddevchallenge.domain.model.Animal
+import com.example.androiddevchallenge.utils.NetworkImage
 
 @Composable
 fun AnimalList(animals: List<Animal>, selectAnimal: (Animal) -> Unit) {
     LazyColumn {
         items(animals) { animal ->
-            AnimalItem(animal, selectAnimal)
+            AnimalItem(animal, selectAnimal, Modifier.height(96.dp))
         }
     }
 }
 
 @Composable
-private fun AnimalItem(animal: Animal, onClick: (Animal) -> Unit) {
-    Card(
-        elevation = 4.dp,
-        modifier = Modifier
-            .padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 8.dp)
-            .clickable(
-                onClick = {
-                    Log.d("tag", "$animal")
-                    onClick(animal)
-                }
-            )
-            .background(Color.Cyan)
-            .fillMaxWidth()
+private fun AnimalItem(animal: Animal, onClick: (Animal) -> Unit, modifier: Modifier = Modifier) {
+    Surface(
+        modifier = modifier
     ) {
-        Column(
-            Modifier.padding(4.dp)
-        ) {
-            Text(text = animal.name)
-            Text(text = animal.name)
+        Row(modifier = Modifier.clickable(onClick = { onClick(animal) })) {
+            NetworkImage(
+                url = "https://images.dog.ceo/breeds/hound-afghan/n02088094_1003.jpg",
+                contentDescription = null,
+                modifier = Modifier.aspectRatio(1f)
+            )
         }
     }
 }
