@@ -47,9 +47,12 @@ private fun AnimalItem(animal: Animal, onClick: (Animal) -> Unit) {
         elevation = 4.dp,
         modifier = Modifier
             .padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 8.dp)
-            .clickable(onClick = {
-            Log.d("tag", "$animal")
-                onClick(animal) })
+            .clickable(
+                onClick = {
+                    Log.d("tag", "$animal")
+                    onClick(animal)
+                }
+            )
             .background(Color.Cyan)
             .fillMaxWidth()
     ) {
