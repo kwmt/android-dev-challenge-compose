@@ -16,21 +16,22 @@
 package com.example.androiddevchallenge
 
 import android.os.Bundle
+import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.androiddevchallenge.presentation.animallist.AnimalListScreen
+import androidx.compose.runtime.CompositionLocalProvider
 import com.example.androiddevchallenge.ui.theme.MyTheme
+import com.example.androiddevchallenge.utils.LocalBackDispatcher
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MyTheme {
-                MyApp()
+                MyApp(onBackPressedDispatcher)
             }
         }
     }
@@ -38,24 +39,10 @@ class MainActivity : AppCompatActivity() {
 
 // Start building your app here!
 @Composable
-fun MyApp() {
-    Surface(color = MaterialTheme.colors.background) {
-        AnimalListScreen()
-    }
-}
-
-@Preview("Light Theme", widthDp = 360, heightDp = 640)
-@Composable
-fun LightPreview() {
-    MyTheme {
-        MyApp()
-    }
-}
-
-@Preview("Dark Theme", widthDp = 360, heightDp = 640)
-@Composable
-fun DarkPreview() {
-    MyTheme(darkTheme = true) {
-        MyApp()
+fun MyApp(onBackPressedDispatcher: OnBackPressedDispatcher) {
+    CompositionLocalProvider(LocalBackDispatcher provides onBackPressedDispatcher) {
+        Surface(color = MaterialTheme.colors.background) {
+            NavGraph()
+        }
     }
 }

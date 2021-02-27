@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.domain.model
+package com.example.androiddevchallenge.utils
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import androidx.activity.OnBackPressedDispatcher
+import androidx.compose.runtime.staticCompositionLocalOf
 
-@Parcelize
-data class Animal(val id: Int, val name: String) : Parcelable
+internal val LocalBackDispatcher = staticCompositionLocalOf<OnBackPressedDispatcher> {
+    error("No Back Dispatcher provided")
+}
