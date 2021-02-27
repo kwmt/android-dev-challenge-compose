@@ -9,6 +9,7 @@ import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
 import com.example.androiddevchallenge.MainDestinations.ANIMAL_DETAIL_ID_KEY
 import com.example.androiddevchallenge.MainDestinations.ANIMAL_DETAIL_ROUTE
+import com.example.androiddevchallenge.MainDestinations.ANIMAL_MODEL_KEY
 import com.example.androiddevchallenge.domain.model.Animal
 import com.example.androiddevchallenge.presentation.animaldetail.AnimalDetailScreen
 import com.example.androiddevchallenge.presentation.animallist.AnimalListScreen
@@ -17,6 +18,7 @@ object MainDestinations {
     const val ANIMALS_ROUTE = "animals"
     const val ANIMAL_DETAIL_ROUTE = "animal"
     const val ANIMAL_DETAIL_ID_KEY = "animalId"
+    const val ANIMAL_MODEL_KEY = "animal"
 }
 
 @Composable
@@ -29,14 +31,18 @@ fun NavGraph(startDestination: String = MainDestinations.ANIMALS_ROUTE) {
             AnimalListScreen(selectAnimal = actions.selectAnimal)
         }
         composable("$ANIMAL_DETAIL_ROUTE/{$ANIMAL_DETAIL_ID_KEY}") {
-            AnimalDetailScreen(navController.previousBackStackEntry?.arguments?.getParcelable("animal"))
+            AnimalDetailScreen(
+                navController.previousBackStackEntry?.arguments?.getParcelable(
+                    ANIMAL_MODEL_KEY
+                )
+            )
         }
     }
 }
 
 class MainActions(navController: NavController) {
     val selectAnimal: (Animal) -> Unit = { animal: Animal ->
-        navController.currentBackStackEntry?.arguments?.putParcelable("animal", animal)
+        navController.currentBackStackEntry?.arguments?.putParcelable(ANIMAL_MODEL_KEY, animal)
         navController.navigate("$ANIMAL_DETAIL_ROUTE/${animal.id}")
     }
 }
