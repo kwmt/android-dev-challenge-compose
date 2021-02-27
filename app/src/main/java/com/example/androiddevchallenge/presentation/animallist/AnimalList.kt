@@ -15,6 +15,7 @@
  */
 package com.example.androiddevchallenge.presentation.animallist
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -32,22 +33,23 @@ import androidx.compose.ui.unit.dp
 import com.example.androiddevchallenge.domain.model.Animal
 
 @Composable
-fun AnimalList(animals: List<Animal>) {
+fun AnimalList(animals: List<Animal>, selectAnimal: (Animal) -> Unit) {
     LazyColumn {
         items(animals) { animal ->
-            AnimalItem(animal) {
-            }
+            AnimalItem(animal, selectAnimal)
         }
     }
 }
 
 @Composable
-private fun AnimalItem(animal: Animal, onClick: () -> Unit) {
+private fun AnimalItem(animal: Animal, onClick: (Animal) -> Unit) {
     Card(
         elevation = 4.dp,
         modifier = Modifier
             .padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 8.dp)
-            .clickable(onClick = onClick)
+            .clickable(onClick = {
+            Log.d("tag", "$animal")
+                onClick(animal) })
             .background(Color.Cyan)
             .fillMaxWidth()
     ) {
@@ -63,5 +65,5 @@ private fun AnimalItem(animal: Animal, onClick: () -> Unit) {
 @Composable
 @Preview
 fun PreviewAnimalList() {
-    AnimalList(animals = createAnimalListData())
+    AnimalList(animals = createAnimalListData()) {}
 }

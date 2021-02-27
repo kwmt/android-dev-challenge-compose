@@ -15,4 +15,8 @@
  */
 package com.example.androiddevchallenge.domain.model
 
-data class Animal(val name: String)
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+data class Animal(val id: Int, val name: String): Parcelable
