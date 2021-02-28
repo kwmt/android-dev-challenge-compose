@@ -24,6 +24,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -31,11 +33,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.androiddevchallenge.domain.model.Animal
 import com.example.androiddevchallenge.utils.NetworkImage
+import dev.chrisbanes.accompanist.insets.statusBarsPadding
 
 @Composable
 fun AnimalList(animals: List<Animal>, selectAnimal: (Animal) -> Unit) {
-    LazyColumn {
-        items(animals) { animal ->
+    Column(
+        Modifier
+            .verticalScroll(rememberScrollState())
+            .statusBarsPadding()
+    ) {
+        animals.map { animal ->
             AnimalItem(animal, selectAnimal, Modifier.height(96.dp))
         }
     }

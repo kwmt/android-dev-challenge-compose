@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.domain.model.Animal
 import com.example.androiddevchallenge.utils.NetworkImage
+import dev.chrisbanes.accompanist.insets.statusBarsPadding
 
 @Composable
 fun AnimalDetailScreen(animal: Animal, upPress: () -> Unit) {
@@ -65,7 +66,7 @@ private fun AnimalDetailHeader(animal: Animal, upPress: () -> Unit) {
             backgroundColor = Color.Transparent,
             elevation = 0.dp,
             contentColor = Color.White,
-//        modifier = Modifier.statusBarsPadding()
+            modifier = Modifier.statusBarsPadding()
         ) {
             IconButton(onClick = upPress) {
                 Icon(
