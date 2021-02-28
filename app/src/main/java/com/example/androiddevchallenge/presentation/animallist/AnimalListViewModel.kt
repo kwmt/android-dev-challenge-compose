@@ -19,11 +19,18 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.androiddevchallenge.domain.model.Animal
+import com.example.androiddevchallenge.domain.repository.AnimalRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AnimalListViewModel : ViewModel() {
+@HiltViewModel
+class AnimalListViewModel @Inject constructor(
+    private val animalRepository: AnimalRepository
+) : ViewModel() {
     private val _uiStateFlow = MutableStateFlow(AnimationListUiState())
     val uiStateFlow: StateFlow<AnimationListUiState> = _uiStateFlow
 
@@ -31,7 +38,9 @@ class AnimalListViewModel : ViewModel() {
         Log.d(TAG, "init")
         viewModelScope.launch {
             Log.d(TAG, "launch")
-            _uiStateFlow.value = AnimationListUiState(createAnimalListData())
+            animalRepository.fetchAnimals().collect { animals ->
+                _uiStateFlow.value = AnimationListUiState(animals)
+            }
         }
     }
 
