@@ -28,7 +28,6 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.androiddevchallenge.domain.model.Animal
 import com.example.androiddevchallenge.utils.NetworkImage
@@ -49,7 +48,7 @@ private fun AnimalItem(animal: Animal, onClick: (Animal) -> Unit, modifier: Modi
     ) {
         Row(modifier = Modifier.clickable(onClick = { onClick(animal) })) {
             NetworkImage(
-                url = "https://images.dog.ceo/breeds/hound-afghan/n02088094_1003.jpg",
+                url = animal.url,
                 contentDescription = null,
                 modifier = Modifier.aspectRatio(1f)
             )
@@ -62,10 +61,4 @@ private fun AnimalItem(animal: Animal, onClick: (Animal) -> Unit, modifier: Modi
             }
         }
     }
-}
-
-@Composable
-@Preview
-fun PreviewAnimalList() {
-    AnimalList(animals = createAnimalListData()) {}
 }

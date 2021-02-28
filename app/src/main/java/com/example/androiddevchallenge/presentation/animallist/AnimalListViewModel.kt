@@ -49,25 +49,10 @@ class AnimalListViewModel @Inject constructor(
     }
 }
 
-//sealed class AnimationListUiState {
+// sealed class AnimationListUiState {
 //    data class Success(val animals: List<Animal>) : AnimationListUiState()
 //    data class Error(val exception: Throwable) : AnimationListUiState()
-//}
+// }
 data class AnimationListUiState(
     val animals: List<Animal> = emptyList()
 )
-
-fun createAnimalListData(): List<Animal> {
-    return listOf(
-        Animal(1, "Bella"),
-        Animal(2, "Molly"),
-        Animal(3, "Lucy"),
-        Animal(4, "Maggie"),
-        Animal(5, "Daisy"),
-        Animal(6, "Sadie"),
-        Animal(7, "Chloe"),
-        Animal(8, "Sophie"),
-        Animal(9, "Sophie"),
-        Animal(10, "Sophie"),
-    )
-}
