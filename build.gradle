@@ -22,7 +22,6 @@ buildscript {
 
     repositories {
         google()
-        jcenter()
         mavenCentral()
     }
 
@@ -40,7 +39,6 @@ plugins {
 subprojects {
     repositories {
         google()
-        jcenter()
         mavenCentral()
     }
 
