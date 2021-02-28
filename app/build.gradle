@@ -2,6 +2,9 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-parcelize'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'org.jetbrains.kotlin.plugin.serialization' version "$kotlin_version"
 }
 
 android {
@@ -80,8 +83,18 @@ dependencies {
     implementation "androidx.navigation:navigation-compose:1.0.0-alpha08"
     implementation "dev.chrisbanes.accompanist:accompanist-coil:0.6.0"
 
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+    implementation 'androidx.hilt:hilt-navigation:1.0.0-alpha03'
+
+    // https://github.com/Kotlin/kotlinx.serialization
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0"
+
     testImplementation 'junit:junit:4.13.2'
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
+}
+kapt {
+    correctErrorTypes true
 }

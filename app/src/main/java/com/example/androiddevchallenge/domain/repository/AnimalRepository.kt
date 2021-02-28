@@ -13,17 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.presentation.animallist
+package com.example.androiddevchallenge.domain.repository
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.androiddevchallenge.domain.model.Animal
+import kotlinx.coroutines.flow.Flow
 
-@Composable
-fun AnimalListScreen(viewModel: AnimalListViewModel = viewModel(), selectAnimal: (Animal) -> Unit) {
-    val uiState by viewModel.uiStateFlow.collectAsState()
-
-    AnimalList(animals = uiState.animals, selectAnimal = selectAnimal)
+interface AnimalRepository {
+    fun fetchAnimals(): Flow<List<Animal>>
 }

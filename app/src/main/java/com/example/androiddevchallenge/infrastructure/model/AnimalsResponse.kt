@@ -13,17 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.presentation.animallist
+package com.example.androiddevchallenge.infrastructure.model
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.androiddevchallenge.domain.model.Animal
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-@Composable
-fun AnimalListScreen(viewModel: AnimalListViewModel = viewModel(), selectAnimal: (Animal) -> Unit) {
-    val uiState by viewModel.uiStateFlow.collectAsState()
+@Serializable
+data class AnimalResponse(
+    val id: Int,
+    val name: String,
+    val description: String,
+    val city: String,
+    val gender: String,
+    @SerialName("clor")
+    val color: String,
+)
 
-    AnimalList(animals = uiState.animals, selectAnimal = selectAnimal)
-}
+@Serializable
+data class DogImage(
+    @SerialName("message")
+    val urls: List<String>,
+    val status: String
+)

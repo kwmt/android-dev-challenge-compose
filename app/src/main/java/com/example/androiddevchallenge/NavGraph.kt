@@ -17,6 +17,9 @@ package com.example.androiddevchallenge
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
+import androidx.hilt.navigation.HiltViewModelFactory
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -28,7 +31,7 @@ import com.example.androiddevchallenge.MainDestinations.ANIMAL_MODEL_KEY
 import com.example.androiddevchallenge.domain.model.Animal
 import com.example.androiddevchallenge.presentation.animaldetail.AnimalDetailScreen
 import com.example.androiddevchallenge.presentation.animallist.AnimalListScreen
-import java.lang.IllegalArgumentException
+import com.example.androiddevchallenge.presentation.animallist.AnimalListViewModel
 
 object MainDestinations {
     const val ANIMALS_ROUTE = "animals"
@@ -44,7 +47,10 @@ fun NavGraph(startDestination: String = MainDestinations.ANIMALS_ROUTE) {
 
     NavHost(navController = navController, startDestination = startDestination) {
         composable(MainDestinations.ANIMALS_ROUTE) {
-            AnimalListScreen(selectAnimal = actions.selectAnimal)
+            val vm: AnimalListViewModel = viewModel(
+                factory = HiltViewModelFactory(LocalContext.current, it)
+            )
+            AnimalListScreen(viewModel = vm, selectAnimal = actions.selectAnimal)
         }
         composable("$ANIMAL_DETAIL_ROUTE/{$ANIMAL_DETAIL_ID_KEY}") {
             val animal = navController.previousBackStackEntry?.arguments?.getParcelable<Animal>(

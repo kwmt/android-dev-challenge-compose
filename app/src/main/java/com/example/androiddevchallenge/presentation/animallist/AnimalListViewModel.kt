@@ -15,30 +15,44 @@
  */
 package com.example.androiddevchallenge.presentation.animallist
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.androiddevchallenge.domain.model.Animal
+import com.example.androiddevchallenge.domain.repository.AnimalRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AnimalListViewModel : ViewModel() {
-    private val _animals = MutableLiveData<List<Animal>>()
-    val animals: LiveData<List<Animal>> = _animals
-    fun fetchAnimals() {
-        _animals.value = createAnimalListData()
+@HiltViewModel
+class AnimalListViewModel @Inject constructor(
+    private val animalRepository: AnimalRepository
+) : ViewModel() {
+    private val _uiStateFlow = MutableStateFlow(AnimationListUiState())
+    val uiStateFlow: StateFlow<AnimationListUiState> = _uiStateFlow
+
+    init {
+        Log.d(TAG, "init")
+        viewModelScope.launch {
+            Log.d(TAG, "launch")
+            animalRepository.fetchAnimals().collect { animals ->
+                _uiStateFlow.value = AnimationListUiState(animals)
+            }
+        }
+    }
+
+    companion object {
+        private val TAG = AnimalListViewModel::class.java.simpleName
     }
 }
 
-fun createAnimalListData(): List<Animal> {
-    return listOf(
-        Animal(1, "Bella"),
-        Animal(2, "Molly"),
-        Animal(3, "Lucy"),
-        Animal(4, "Maggie"),
-        Animal(5, "Daisy"),
-        Animal(6, "Sadie"),
-        Animal(7, "Chloe"),
-        Animal(8, "Sophie"),
-        Animal(9, "Sophie"),
-        Animal(10, "Sophie"),
-    )
-}
+// sealed class AnimationListUiState {
+//    data class Success(val animals: List<Animal>) : AnimationListUiState()
+//    data class Error(val exception: Throwable) : AnimationListUiState()
+// }
+data class AnimationListUiState(
+    val animals: List<Animal> = emptyList()
+)

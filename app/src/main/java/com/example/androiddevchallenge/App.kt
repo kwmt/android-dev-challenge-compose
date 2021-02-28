@@ -13,17 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.presentation.animallist
+package com.example.androiddevchallenge
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.androiddevchallenge.domain.model.Animal
+import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 
-@Composable
-fun AnimalListScreen(viewModel: AnimalListViewModel = viewModel(), selectAnimal: (Animal) -> Unit) {
-    val uiState by viewModel.uiStateFlow.collectAsState()
-
-    AnimalList(animals = uiState.animals, selectAnimal = selectAnimal)
-}
+@HiltAndroidApp
+class App : Application()
