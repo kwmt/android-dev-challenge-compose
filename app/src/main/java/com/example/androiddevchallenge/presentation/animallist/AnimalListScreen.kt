@@ -24,7 +24,7 @@ import com.example.androiddevchallenge.domain.model.Animal
 @Composable
 fun AnimalListScreen(selectAnimal: (Animal) -> Unit) {
     val viewModel: AnimalListViewModel = viewModel()
-    val uiState by viewModel.animals.collectAsState()
+    val uiState by viewModel.uiStateFlow.collectAsState()
 
     AnimalList(animals = uiState.animals, selectAnimal = selectAnimal)
 }
