@@ -16,15 +16,15 @@
 package com.example.androiddevchallenge.presentation.animallist
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.androiddevchallenge.domain.model.Animal
 
 @Composable
-fun AnimalListScreen(selectAnimal: (Animal) -> Unit, viewModel: AnimalListViewModel = viewModel()) {
-    val animals: List<Animal> by viewModel.animals.observeAsState(initial = listOf())
+fun AnimalListScreen(selectAnimal: (Animal) -> Unit) {
+    val viewModel: AnimalListViewModel = viewModel()
+    val animals by viewModel.animals.collectAsState()
 
-    viewModel.fetchAnimals()
-    AnimalList(animals = animals, selectAnimal = selectAnimal)
+    AnimalList(animals = animals.animals, selectAnimal = selectAnimal)
 }

@@ -15,18 +15,40 @@
  */
 package com.example.androiddevchallenge.presentation.animallist
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.androiddevchallenge.domain.model.Animal
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 class AnimalListViewModel : ViewModel() {
-    private val _animals = MutableLiveData<List<Animal>>()
-    val animals: LiveData<List<Animal>> = _animals
-    fun fetchAnimals() {
-        _animals.value = createAnimalListData()
+    private val _animals = MutableStateFlow(AnimationListUiState())
+    val animals: StateFlow<AnimationListUiState> = _animals
+
+    init {
+        Log.d(TAG, "init")
+        viewModelScope.launch {
+            Log.d(TAG, "launch")
+            _animals.value = AnimationListUiState(createAnimalListData())
+        }
+    }
+
+    companion object {
+        private val TAG = AnimalListViewModel::class.java.simpleName
     }
 }
+
+//sealed class AnimationListUiState {
+//    data class Success(val animals: List<Animal>) : AnimationListUiState()
+//    data class Error(val exception: Throwable) : AnimationListUiState()
+//}
+data class AnimationListUiState(
+    val animals: List<Animal> = emptyList()
+)
 
 fun createAnimalListData(): List<Animal> {
     return listOf(
