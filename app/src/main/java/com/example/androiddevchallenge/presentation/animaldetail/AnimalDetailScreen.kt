@@ -16,26 +16,27 @@
 package com.example.androiddevchallenge.presentation.animaldetail
 
 import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.domain.model.Animal
+import com.example.androiddevchallenge.ui.theme.Neutral8
 import com.example.androiddevchallenge.utils.NetworkImage
 import dev.chrisbanes.accompanist.insets.statusBarsPadding
 
@@ -54,7 +55,7 @@ private fun AnimalDetailContents(animal: Animal, upPress: () -> Unit) {
 
 @Composable
 private fun AnimalDetailHeader(animal: Animal, upPress: () -> Unit) {
-    Box {
+    Box(Modifier.fillMaxSize()) {
         NetworkImage(
             url = animal.url,
             contentDescription = null,
@@ -62,21 +63,29 @@ private fun AnimalDetailHeader(animal: Animal, upPress: () -> Unit) {
                 .fillMaxWidth()
                 .aspectRatio(4f / 3f)
         )
-        TopAppBar(
-            backgroundColor = Color.Transparent,
-            elevation = 0.dp,
-            contentColor = Color.White,
-            modifier = Modifier.statusBarsPadding()
-        ) {
-            IconButton(onClick = upPress) {
-                Icon(
-                    imageVector = Icons.Rounded.ArrowBack,
-                    contentDescription = stringResource(id = R.string.label_back)
-                )
-            }
-            Text(animal.name, modifier = Modifier.align(Alignment.CenterVertically))
-            Spacer(modifier = Modifier.weight(1f))
-        }
+        Up(upPress)
+    }
+}
+
+@Composable
+private fun Up(
+    upPress: () -> Unit,
+) {
+    IconButton(
+        onClick = upPress,
+        modifier = Modifier
+            .statusBarsPadding()
+            .padding(horizontal = 16.dp, vertical = 16.dp)
+            .size(36.dp)
+            .background(
+                color = Neutral8.copy(alpha = 0.32f),
+                shape = CircleShape
+            )
+    ) {
+        Icon(
+            imageVector = Icons.Rounded.ArrowBack,
+            contentDescription = stringResource(id = R.string.label_back)
+        )
     }
 }
 

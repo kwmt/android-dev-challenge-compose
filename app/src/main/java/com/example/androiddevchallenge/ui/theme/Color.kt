@@ -25,6 +25,8 @@ val purple500 = Color(0xFF6200EE)
 val purple700 = Color(0xFF3700B3)
 val teal200 = Color(0xFF03DAC5)
 
+val Neutral8 = Color(0xff121212)
+
 @Composable
 fun Colors.compositedOnSurface(alpha: Float): Color {
     return onSurface.copy(alpha = alpha).compositeOver(surface)
