@@ -27,6 +27,8 @@ val teal200 = Color(0xFF03DAC5)
 
 val Neutral8 = Color(0xff121212)
 
+val Ocean3 = Color(0xff86f7fa)
+val Shadow3 = Color(0xff9b86fa)
 @Composable
 fun Colors.compositedOnSurface(alpha: Float): Color {
     return onSurface.copy(alpha = alpha).compositeOver(surface)

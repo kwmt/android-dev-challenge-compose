@@ -17,28 +17,57 @@ package com.example.androiddevchallenge.presentation.animaldetail
 
 import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.Layout
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.lerp
+import androidx.compose.ui.util.lerp
 import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.domain.model.Animal
+import com.example.androiddevchallenge.presentation.components.AnimalImage
 import com.example.androiddevchallenge.ui.theme.Neutral8
-import com.example.androiddevchallenge.utils.NetworkImage
+import com.example.androiddevchallenge.ui.theme.Ocean3
+import com.example.androiddevchallenge.ui.theme.Shadow3
 import dev.chrisbanes.accompanist.insets.statusBarsPadding
+import kotlin.math.max
+import kotlin.math.min
+
+private val GradientScroll = 180.dp
+private val ImageOverlap = 115.dp
+private val MinTitleOffset = 56.dp
+private val MinImageOffset = 12.dp
+private val MaxTitleOffset = ImageOverlap + MinTitleOffset + GradientScroll
+
+// 115 + 56 + 180 = 351
+private val TitleHeight = 128.dp
+private val ExpandedImageSize = 300.dp
+private val CollapsedImageSize = 150.dp
+private val HzPadding = Modifier.padding(horizontal = 24.dp)
 
 @Composable
 fun AnimalDetailScreen(animal: Animal, upPress: () -> Unit) {
@@ -48,22 +77,100 @@ fun AnimalDetailScreen(animal: Animal, upPress: () -> Unit) {
 
 @Composable
 private fun AnimalDetailContents(animal: Animal, upPress: () -> Unit) {
-    LazyColumn {
-        item { AnimalDetailHeader(animal, upPress) }
+    Box(Modifier.fillMaxSize()) {
+        val scroll = rememberScrollState(0)
+        Header()
+        Body()
+        Title(animal, scroll.value)
+        Up(upPress)
+        MainDogImage(imageUrl = animal.url, scroll = scroll.value)
     }
 }
 
 @Composable
-private fun AnimalDetailHeader(animal: Animal, upPress: () -> Unit) {
-    Box(Modifier.fillMaxSize()) {
-        NetworkImage(
-            url = animal.url,
-            contentDescription = null,
-            modifier = Modifier
-                .fillMaxWidth()
-                .aspectRatio(4f / 3f)
+private fun Title(animal: Animal, scroll: Int) {
+    val maxOffset = with(LocalDensity.current) { MaxTitleOffset.toPx() }
+    val minOffset = with(LocalDensity.current) { MinTitleOffset.toPx() }
+    val offset = (maxOffset - scroll).coerceAtLeast(minOffset)
+
+    Column(
+        verticalArrangement = Arrangement.Bottom,
+        modifier = Modifier
+            .heightIn(min = TitleHeight)
+            .statusBarsPadding()
+            .graphicsLayer { translationY = offset }
+    ) {
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(
+            text = animal.name,
+            style = MaterialTheme.typography.h4,
+            color = MaterialTheme.colors.primary,
+            modifier = HzPadding
         )
-        Up(upPress)
+    }
+}
+
+@Composable
+private fun Body() {
+}
+
+@Composable
+private fun Header() {
+    Spacer(
+        modifier = Modifier
+            .height(280.dp)
+            .fillMaxWidth()
+            .background(
+                Brush.horizontalGradient(
+                    listOf(Ocean3, Shadow3)
+                )
+            )
+    )
+}
+
+@Composable
+private fun MainDogImage(
+    imageUrl: String,
+    scroll: Int,
+) {
+    val collapseRange = with(LocalDensity.current) { (MaxTitleOffset - MinTitleOffset).toPx() }
+    val collapseFraction = (scroll / collapseRange).coerceIn(0f, 1f)
+    CollapsingImageLayout(
+        collapseFraction = collapseFraction,
+        modifier = HzPadding.then(Modifier.statusBarsPadding())
+    ) {
+        AnimalImage(url = imageUrl, modifier = Modifier.fillMaxSize())
+    }
+}
+
+@Composable
+private fun CollapsingImageLayout(
+    collapseFraction: Float,
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit,
+) {
+    Layout(
+        modifier = modifier,
+        content = content,
+    ) { measurables, constraints ->
+        check(measurables.size == 1)
+        val imageMaxSize = min(ExpandedImageSize.roundToPx(), constraints.maxWidth)
+        val imageMinSize = max(CollapsedImageSize.roundToPx(), constraints.minWidth)
+        val imageWidth = lerp(imageMaxSize, imageMinSize, collapseFraction)
+        val imagePlaceable = measurables[0].measure(Constraints.fixed(imageWidth, imageWidth))
+        val imageY = lerp(MinTitleOffset, MinImageOffset, collapseFraction).roundToPx()
+        val imageX = lerp(
+            (constraints.maxWidth - imageWidth) / 2,
+            constraints.maxWidth - imageWidth,
+            collapseFraction
+        )
+
+        layout(
+            width = constraints.maxWidth,
+            height = imageY + imageWidth
+        ) {
+            imagePlaceable.place(imageX, imageY)
+        }
     }
 }
 
