@@ -16,16 +16,13 @@
 package com.example.androiddevchallenge
 
 import android.os.Bundle
-import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.core.view.WindowCompat
 import com.example.androiddevchallenge.ui.theme.MyTheme
-import com.example.androiddevchallenge.utils.LocalBackDispatcher
 import dagger.hilt.android.AndroidEntryPoint
 import dev.chrisbanes.accompanist.insets.ProvideWindowInsets
 
@@ -36,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             MyTheme {
-                MyApp(onBackPressedDispatcher)
+                MyApp()
             }
         }
     }
@@ -44,12 +41,10 @@ class MainActivity : AppCompatActivity() {
 
 // Start building your app here!
 @Composable
-fun MyApp(onBackPressedDispatcher: OnBackPressedDispatcher) {
-    CompositionLocalProvider(LocalBackDispatcher provides onBackPressedDispatcher) {
-        ProvideWindowInsets {
-            Surface(color = MaterialTheme.colors.background) {
-                NavGraph()
-            }
+fun MyApp() {
+    ProvideWindowInsets {
+        Surface(color = MaterialTheme.colors.background) {
+            NavGraph()
         }
     }
 }
