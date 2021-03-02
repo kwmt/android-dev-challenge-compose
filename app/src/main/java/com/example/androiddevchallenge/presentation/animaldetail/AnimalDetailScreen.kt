@@ -116,6 +116,19 @@ private fun Title(animal: Animal, scroll: Int) {
             color = MaterialTheme.colors.primary,
             modifier = HzPadding
         )
+        Text(
+            text = animal.city,
+            style = MaterialTheme.typography.subtitle2,
+            color = MaterialTheme.colors.primary,
+            modifier = HzPadding
+        )
+        Text(
+            text = animal.gender,
+            style = MaterialTheme.typography.subtitle2,
+            color = MaterialTheme.colors.primary,
+            modifier = HzPadding
+        )
+        Spacer(Modifier.height(8.dp))
     }
 }
 
