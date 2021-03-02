@@ -13,24 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.ui.theme
+package com.example.androiddevchallenge.presentation.components
 
-import androidx.compose.material.Colors
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.compositeOver
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.example.androiddevchallenge.utils.NetworkImage
 
-val purple200 = Color(0xFFBB86FC)
-val purple500 = Color(0xFF6200EE)
-val purple700 = Color(0xFF3700B3)
-val teal200 = Color(0xFF03DAC5)
-
-val Neutral0 = Color(0xffffffff)
-val Neutral8 = Color(0xff121212)
-
-val Ocean3 = Color(0xff86f7fa)
-val Shadow3 = Color(0xff9b86fa)
 @Composable
-fun Colors.compositedOnSurface(alpha: Float): Color {
-    return onSurface.copy(alpha = alpha).compositeOver(surface)
+fun AnimalImage(
+    url: String,
+    modifier: Modifier = Modifier,
+) {
+    Surface(
+        elevation = 0.dp,
+        shape = CircleShape,
+        modifier = modifier,
+    ) {
+        NetworkImage(
+            url = url,
+            contentDescription = null,
+            modifier = modifier
+        )
+    }
 }

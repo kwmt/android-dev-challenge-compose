@@ -31,10 +31,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.androiddevchallenge.domain.model.Animal
 import com.example.androiddevchallenge.utils.NetworkImage
+import dev.chrisbanes.accompanist.insets.statusBarsPadding
 
 @Composable
 fun AnimalList(animals: List<Animal>, selectAnimal: (Animal) -> Unit) {
-    LazyColumn {
+    LazyColumn(
+        Modifier
+            .statusBarsPadding()
+    ) {
         items(animals) { animal ->
             AnimalItem(animal, selectAnimal, Modifier.height(96.dp))
         }

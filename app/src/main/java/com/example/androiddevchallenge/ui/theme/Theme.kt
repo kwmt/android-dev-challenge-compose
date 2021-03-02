@@ -17,20 +17,28 @@ package com.example.androiddevchallenge.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.Stable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.graphics.Color
 
-private val DarkColorPalette = darkColors(
-    primary = purple200,
-    primaryVariant = purple700,
-    secondary = teal200
+private val DarkColorPalette = JetsnackColors(
+    uiBackground = Neutral8,
+//    primary = purple200,
+//    primaryVariant = purple700,
+//    secondary = teal200
 )
 
-private val LightColorPalette = lightColors(
-    primary = purple500,
-    primaryVariant = purple700,
-    secondary = teal200
+private val LightColorPalette = JetsnackColors(
+    uiBackground = Neutral0,
+//    primary = purple500,
+//    primaryVariant = purple700,
+//    secondary = teal200
 
         /* Other default colors to override
     background = Color.White,
@@ -50,10 +58,40 @@ fun MyTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() (
         LightColorPalette
     }
 
-    MaterialTheme(
-        colors = colors,
-        typography = typography,
-        shapes = shapes,
-        content = content
-    )
+    ProvideJetsnackColors(colors) {
+        MaterialTheme(
+//            colors = colors,
+            typography = typography,
+            shapes = shapes,
+            content = content
+        )
+    }
+}
+object JetsnackTheme {
+    val colors: JetsnackColors
+        @Composable
+        get() = LocalJetsnackColors.current
+}
+@Stable
+class JetsnackColors(uiBackground: Color,) {
+    var uiBackground by mutableStateOf(uiBackground)
+        private set
+
+    fun update(other: JetsnackColors) {
+        uiBackground = other.uiBackground
+    }
+}
+
+@Composable
+fun ProvideJetsnackColors(
+    colors: JetsnackColors,
+    content: @Composable () -> Unit
+) {
+    val colorPalette = remember { colors }
+    colorPalette.update(colors)
+    CompositionLocalProvider(LocalJetsnackColors provides colorPalette, content = content)
+}
+
+private val LocalJetsnackColors = staticCompositionLocalOf<JetsnackColors> {
+    error("No JetsnackColorPalette provided")
 }

@@ -61,9 +61,13 @@ class Api @Inject constructor(
         val dogImage = Json.decodeFromString<DogImage>(dogImagesJson)
         val result = element.mapIndexed { index, animalResponse ->
             Animal(
-                animalResponse.id,
-                animalResponse.name,
-                dogImage.urls[index % dogImage.urls.size]
+                id = animalResponse.id,
+                name = animalResponse.name,
+                description = animalResponse.description,
+                city = animalResponse.city,
+                gender = animalResponse.gender,
+                color = animalResponse.color,
+                url = dogImage.urls[index % dogImage.urls.size]
             )
         }
         emit(result)
