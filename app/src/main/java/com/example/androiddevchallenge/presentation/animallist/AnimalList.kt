@@ -25,7 +25,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -33,6 +32,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.androiddevchallenge.domain.model.Animal
 import com.example.androiddevchallenge.presentation.components.AnimalImage
+import com.example.androiddevchallenge.presentation.components.DevChallengeSurface
 import dev.chrisbanes.accompanist.insets.statusBarsPadding
 
 @Composable
@@ -49,7 +49,7 @@ fun AnimalList(animals: List<Animal>, selectAnimal: (Animal) -> Unit) {
 
 @Composable
 private fun AnimalItem(animal: Animal, onClick: (Animal) -> Unit, modifier: Modifier = Modifier) {
-    Surface(
+    DevChallengeSurface(
         modifier = modifier
     ) {
         Row(

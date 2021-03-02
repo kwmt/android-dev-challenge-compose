@@ -27,25 +27,18 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
-private val DarkColorPalette = DevChallengeColors(
-    uiBackground = Neutral8,
-//    primary = purple200,
-//    primaryVariant = purple700,
-//    secondary = teal200
-)
 private val LightColorPalette = DevChallengeColors(
     uiBackground = Neutral0,
-//    primary = purple500,
-//    primaryVariant = purple700,
-//    secondary = teal200
-    /* Other default colors to override
-background = Color.White,
-surface = Color.White,
-onPrimary = Color.White,
-onSecondary = Color.Black,
-onBackground = Color.Black,
-onSurface = Color.Black,
-*/
+    textPrimary = Shadow5,
+    textSecondary = Neutral7,
+    gradient2_1 = listOf(Shadow4, Shadow11),
+
+)
+private val DarkColorPalette = DevChallengeColors(
+    uiBackground = Neutral8,
+    textPrimary = Shadow1,
+    textSecondary = Neutral0,
+    gradient2_1 = listOf(Ocean3, Shadow3),
 )
 
 @Composable
@@ -73,12 +66,26 @@ object DevChallengeTheme {
 }
 
 @Stable
-class DevChallengeColors(uiBackground: Color) {
+class DevChallengeColors(
+    uiBackground: Color,
+    textPrimary: Color,
+    textSecondary: Color,
+    gradient2_1: List<Color>,
+    interactivePrimary: List<Color> = gradient2_1,
+) {
     var uiBackground by mutableStateOf(uiBackground)
+        private set
+    var textPrimary by mutableStateOf(textPrimary)
+        private set
+    var textSecondary by mutableStateOf(textSecondary)
+        private set
+    var interactivePrimary by mutableStateOf(interactivePrimary)
         private set
 
     fun update(other: DevChallengeColors) {
         uiBackground = other.uiBackground
+        textPrimary = other.textPrimary
+        textSecondary = other.textSecondary
     }
 }
 

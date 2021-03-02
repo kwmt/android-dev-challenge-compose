@@ -34,7 +34,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
@@ -53,11 +52,9 @@ import androidx.compose.ui.util.lerp
 import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.domain.model.Animal
 import com.example.androiddevchallenge.presentation.components.AnimalImage
+import com.example.androiddevchallenge.presentation.components.DevChallengeSurface
 import com.example.androiddevchallenge.ui.theme.DevChallengeTheme
 import com.example.androiddevchallenge.ui.theme.MyTheme
-import com.example.androiddevchallenge.ui.theme.Neutral8
-import com.example.androiddevchallenge.ui.theme.Ocean3
-import com.example.androiddevchallenge.ui.theme.Shadow3
 import dev.chrisbanes.accompanist.insets.navigationBarsPadding
 import dev.chrisbanes.accompanist.insets.statusBarsPadding
 import kotlin.math.max
@@ -112,19 +109,19 @@ private fun Title(animal: Animal, scroll: Int) {
         Text(
             text = animal.name,
             style = MaterialTheme.typography.h4,
-            color = MaterialTheme.colors.primary,
+            color = DevChallengeTheme.colors.textPrimary,
             modifier = HzPadding
         )
         Text(
             text = animal.city,
             style = MaterialTheme.typography.subtitle2,
-            color = MaterialTheme.colors.primary,
+            color = DevChallengeTheme.colors.textSecondary,
             modifier = HzPadding
         )
         Text(
             text = animal.gender,
             style = MaterialTheme.typography.subtitle2,
-            color = MaterialTheme.colors.primary,
+            color = DevChallengeTheme.colors.textSecondary,
             modifier = HzPadding
         )
         Spacer(Modifier.height(8.dp))
@@ -142,74 +139,23 @@ private fun Body(animal: Animal, scroll: ScrollState) {
         )
         Column(modifier = Modifier.verticalScroll(scroll)) {
             Spacer(modifier = Modifier.height(GradientScroll))
-            Surface(modifier = Modifier.fillMaxWidth()) {
+            DevChallengeSurface(modifier = Modifier.fillMaxWidth()) {
                 Column {
                     Spacer(modifier = Modifier.height(ImageOverlap))
                     Spacer(modifier = Modifier.height(TitleHeight))
                     Text(
                         text = stringResource(id = R.string.detail_header),
+                        color = DevChallengeTheme.colors.textSecondary,
                         modifier = HzPadding
                     )
-                    Text(
-                        text = animal.description,
-                        modifier = HzPadding
-                    )
-                    Text(
-                        text = animal.description,
-                        modifier = HzPadding
-                    )
-                    Text(
-                        text = animal.description,
-                        modifier = HzPadding
-                    )
-                    Text(
-                        text = animal.description,
-                        modifier = HzPadding
-                    )
-                    Text(
-                        text = animal.description,
-                        modifier = HzPadding
-                    )
-                    Text(
-                        text = animal.description,
-                        modifier = HzPadding
-                    )
-                    Text(
-                        text = animal.description,
-                        modifier = HzPadding
-                    )
-                    Text(
-                        text = animal.description,
-                        modifier = HzPadding
-                    )
-                    Text(
-                        text = animal.description,
-                        modifier = HzPadding
-                    )
-                    Text(
-                        text = animal.description,
-                        modifier = HzPadding
-                    )
-                    Text(
-                        text = animal.description,
-                        modifier = HzPadding
-                    )
-                    Text(
-                        text = animal.description,
-                        modifier = HzPadding
-                    )
-                    Text(
-                        text = animal.description,
-                        modifier = HzPadding
-                    )
-                    Text(
-                        text = animal.description,
-                        modifier = HzPadding
-                    )
-                    Text(
-                        text = animal.description,
-                        modifier = HzPadding
-                    )
+                    for (i in 0..10) {
+                        Text(
+                            text = animal.description,
+                            color = DevChallengeTheme.colors.textSecondary,
+                            modifier = HzPadding
+                        )
+                    }
+
                     Spacer(
                         Modifier
                             .navigationBarsPadding(left = false, right = false)
@@ -225,11 +171,11 @@ private fun Body(animal: Animal, scroll: ScrollState) {
 private fun Header() {
     Spacer(
         modifier = Modifier
-            .height(280.dp)
+            .height((280 + 24).dp)
             .fillMaxWidth()
             .background(
                 Brush.horizontalGradient(
-                    listOf(Ocean3, Shadow3)
+                    DevChallengeTheme.colors.interactivePrimary
                 )
             )
     )
@@ -292,7 +238,7 @@ private fun Up(
             .padding(horizontal = 16.dp, vertical = 16.dp)
             .size(36.dp)
             .background(
-                color = Neutral8.copy(alpha = 0.32f),
+                color = DevChallengeTheme.colors.uiBackground.copy(alpha = 0.32f),
                 shape = CircleShape
             )
     ) {

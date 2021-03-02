@@ -25,8 +25,15 @@ val purple500 = Color(0xFF6200EE)
 val purple700 = Color(0xFF3700B3)
 val teal200 = Color(0xFF03DAC5)
 
-val Neutral0 = Color(0xffffffff)
+val Shadow11 = Color(0xff001787)
+val Shadow7 = Color(0xff0e00d7)
+val Shadow5 = Color(0xff4b30ed)
+val Shadow4 = Color(0xff7057f5)
+val Shadow1 = Color(0xffded6fe)
+
 val Neutral8 = Color(0xff121212)
+val Neutral7 = Color(0xdef000000)
+val Neutral0 = Color(0xffffffff)
 
 val Ocean3 = Color(0xff86f7fa)
 val Shadow3 = Color(0xff9b86fa)
