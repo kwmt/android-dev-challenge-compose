@@ -86,7 +86,7 @@ private fun AnimalDetailContents(animal: Animal, upPress: () -> Unit) {
         Body(animal, scroll)
         Title(animal, scroll.value)
         Up(upPress)
-        MainDogImage(imageUrl = animal.url, scroll = scroll.value)
+        MainAnimalImage(imageUrl = animal.url, scroll = scroll.value)
     }
 }
 
@@ -182,7 +182,7 @@ private fun Header() {
 }
 
 @Composable
-private fun MainDogImage(
+private fun MainAnimalImage(
     imageUrl: String,
     scroll: Int,
 ) {
