@@ -16,6 +16,7 @@
 package com.example.androiddevchallenge.presentation.animaldetail
 
 import android.util.Log
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -29,15 +30,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.platform.LocalDensity
@@ -50,6 +54,8 @@ import androidx.compose.ui.util.lerp
 import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.domain.model.Animal
 import com.example.androiddevchallenge.presentation.components.AnimalImage
+import com.example.androiddevchallenge.ui.theme.JetsnackTheme
+import com.example.androiddevchallenge.ui.theme.MyTheme
 import com.example.androiddevchallenge.ui.theme.Neutral8
 import com.example.androiddevchallenge.ui.theme.Ocean3
 import com.example.androiddevchallenge.ui.theme.Shadow3
@@ -80,7 +86,7 @@ private fun AnimalDetailContents(animal: Animal, upPress: () -> Unit) {
     Box(Modifier.fillMaxSize()) {
         val scroll = rememberScrollState(0)
         Header()
-        Body()
+        Body(animal, scroll)
         Title(animal, scroll.value)
         Up(upPress)
         MainDogImage(imageUrl = animal.url, scroll = scroll.value)
@@ -98,7 +104,9 @@ private fun Title(animal: Animal, scroll: Int) {
         modifier = Modifier
             .heightIn(min = TitleHeight)
             .statusBarsPadding()
+            .fillMaxWidth()
             .graphicsLayer { translationY = offset }
+            .background(JetsnackTheme.colors.uiBackground)
     ) {
         Spacer(modifier = Modifier.height(16.dp))
         Text(
@@ -111,7 +119,89 @@ private fun Title(animal: Animal, scroll: Int) {
 }
 
 @Composable
-private fun Body() {
+private fun Body(animal: Animal, scroll: ScrollState) {
+    Column {
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .statusBarsPadding()
+                .height(MinTitleOffset)
+        )
+        Column(modifier = Modifier.verticalScroll(scroll)) {
+            Spacer(modifier = Modifier.height(GradientScroll))
+            Surface(modifier = Modifier.fillMaxWidth()) {
+                Column {
+                    Spacer(modifier = Modifier.height(ImageOverlap))
+                    Spacer(modifier = Modifier.height(TitleHeight))
+                    Text(
+                        text = stringResource(id = R.string.detail_header),
+                        modifier = HzPadding
+                    )
+                    Text(
+                        text = animal.description,
+                        modifier = HzPadding
+                    )
+                    Text(
+                        text = animal.description,
+                        modifier = HzPadding
+                    )
+                    Text(
+                        text = animal.description,
+                        modifier = HzPadding
+                    )
+                    Text(
+                        text = animal.description,
+                        modifier = HzPadding
+                    )
+                    Text(
+                        text = animal.description,
+                        modifier = HzPadding
+                    )
+                    Text(
+                        text = animal.description,
+                        modifier = HzPadding
+                    )
+                    Text(
+                        text = animal.description,
+                        modifier = HzPadding
+                    )
+                    Text(
+                        text = animal.description,
+                        modifier = HzPadding
+                    )
+                    Text(
+                        text = animal.description,
+                        modifier = HzPadding
+                    )
+                    Text(
+                        text = animal.description,
+                        modifier = HzPadding
+                    )
+                    Text(
+                        text = animal.description,
+                        modifier = HzPadding
+                    )
+                    Text(
+                        text = animal.description,
+                        modifier = HzPadding
+                    )
+                    Text(
+                        text = animal.description,
+                        modifier = HzPadding
+                    )
+                    Text(
+                        text = animal.description,
+                        modifier = HzPadding
+                    )
+                    Text(
+                        text = animal.description,
+                        modifier = HzPadding
+                    )
+                    Spacer(Modifier.height(16.dp))
+                }
+            }
+        }
+    }
 }
 
 @Composable
@@ -199,10 +289,16 @@ private fun Up(
 @Preview
 @Composable
 private fun PreviewAnimalDetailScreen() {
-    AnimalDetailScreen(
-        animal = Animal(
-            1,
-            "test",
-            "https://images.dog.ceo/breeds/hound-ibizan/n02091244_440.jpg"
-        ), upPress = { /*TODO*/ })
+    MyTheme {
+        AnimalDetailScreen(
+            animal = Animal(
+                1,
+                "test",
+                "test",
+                "city",
+                "gender",
+                "#ffffff",
+                "https://images.dog.ceo/breeds/hound-ibizan/n02091244_440.jpg"
+            ), upPress = { /*TODO*/ })
+    }
 }

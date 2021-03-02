@@ -19,4 +19,12 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Animal(val id: Int, val name: String, val url: String) : Parcelable
+data class Animal(
+    val id: Int,
+    val name: String,
+    val description: String,
+    val city: String,
+    val gender: String, // TODO: enum
+    val color: String, // TODO: Color
+    val url: String
+) : Parcelable
