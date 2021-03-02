@@ -30,7 +30,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.androiddevchallenge.domain.model.Animal
-import com.example.androiddevchallenge.utils.NetworkImage
+import com.example.androiddevchallenge.presentation.components.AnimalImage
 import dev.chrisbanes.accompanist.insets.statusBarsPadding
 
 @Composable
@@ -51,11 +51,7 @@ private fun AnimalItem(animal: Animal, onClick: (Animal) -> Unit, modifier: Modi
         modifier = modifier
     ) {
         Row(modifier = Modifier.clickable(onClick = { onClick(animal) })) {
-            NetworkImage(
-                url = animal.url,
-                contentDescription = null,
-                modifier = Modifier.aspectRatio(1f)
-            )
+            AnimalImage(animal.url, modifier = Modifier.aspectRatio(1f))
             Column(
                 modifier = Modifier
                     .padding(8.dp)
