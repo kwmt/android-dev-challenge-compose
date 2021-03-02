@@ -27,14 +27,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
-private val DarkColorPalette = JetsnackColors(
+private val DarkColorPalette = DevChallengeColors(
     uiBackground = Neutral8,
 //    primary = purple200,
 //    primaryVariant = purple700,
 //    secondary = teal200
 )
 
-private val LightColorPalette = JetsnackColors(
+private val LightColorPalette = DevChallengeColors(
     uiBackground = Neutral0,
 //    primary = purple500,
 //    primaryVariant = purple700,
@@ -58,7 +58,7 @@ fun MyTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() (
         LightColorPalette
     }
 
-    ProvideJetsnackColors(colors) {
+    ProvideDevChallengeColors(colors) {
         MaterialTheme(
 //            colors = colors,
             typography = typography,
@@ -67,31 +67,31 @@ fun MyTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() (
         )
     }
 }
-object JetsnackTheme {
-    val colors: JetsnackColors
+object DevChallengeTheme {
+    val colors: DevChallengeColors
         @Composable
-        get() = LocalJetsnackColors.current
+        get() = LocalDevChallengeColors.current
 }
 @Stable
-class JetsnackColors(uiBackground: Color,) {
+class DevChallengeColors(uiBackground: Color,) {
     var uiBackground by mutableStateOf(uiBackground)
         private set
 
-    fun update(other: JetsnackColors) {
+    fun update(other: DevChallengeColors) {
         uiBackground = other.uiBackground
     }
 }
 
 @Composable
-fun ProvideJetsnackColors(
-    colors: JetsnackColors,
+fun ProvideDevChallengeColors(
+    colors: DevChallengeColors,
     content: @Composable () -> Unit
 ) {
     val colorPalette = remember { colors }
     colorPalette.update(colors)
-    CompositionLocalProvider(LocalJetsnackColors provides colorPalette, content = content)
+    CompositionLocalProvider(LocalDevChallengeColors provides colorPalette, content = content)
 }
 
-private val LocalJetsnackColors = staticCompositionLocalOf<JetsnackColors> {
-    error("No JetsnackColorPalette provided")
+private val LocalDevChallengeColors = staticCompositionLocalOf<DevChallengeColors> {
+    error("No DevChallengeColorPalette provided")
 }

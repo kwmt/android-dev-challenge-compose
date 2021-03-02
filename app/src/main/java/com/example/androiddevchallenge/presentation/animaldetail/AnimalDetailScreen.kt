@@ -53,7 +53,7 @@ import androidx.compose.ui.util.lerp
 import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.domain.model.Animal
 import com.example.androiddevchallenge.presentation.components.AnimalImage
-import com.example.androiddevchallenge.ui.theme.JetsnackTheme
+import com.example.androiddevchallenge.ui.theme.DevChallengeTheme
 import com.example.androiddevchallenge.ui.theme.MyTheme
 import com.example.androiddevchallenge.ui.theme.Neutral8
 import com.example.androiddevchallenge.ui.theme.Ocean3
@@ -106,7 +106,7 @@ private fun Title(animal: Animal, scroll: Int) {
             .statusBarsPadding()
             .fillMaxWidth()
             .graphicsLayer { translationY = offset }
-            .background(JetsnackTheme.colors.uiBackground)
+            .background(DevChallengeTheme.colors.uiBackground)
     ) {
         Spacer(modifier = Modifier.height(16.dp))
         Text(
