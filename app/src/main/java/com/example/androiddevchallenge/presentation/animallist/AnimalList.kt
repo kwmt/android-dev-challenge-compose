@@ -24,13 +24,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.androiddevchallenge.domain.model.Animal
-import com.example.androiddevchallenge.utils.NetworkImage
+import com.example.androiddevchallenge.presentation.components.AnimalImage
 import dev.chrisbanes.accompanist.insets.statusBarsPadding
 
 @Composable
@@ -50,18 +52,33 @@ private fun AnimalItem(animal: Animal, onClick: (Animal) -> Unit, modifier: Modi
     Surface(
         modifier = modifier
     ) {
-        Row(modifier = Modifier.clickable(onClick = { onClick(animal) })) {
-            NetworkImage(
-                url = animal.url,
-                contentDescription = null,
-                modifier = Modifier.aspectRatio(1f)
-            )
+        Row(
+            modifier = Modifier
+                .clickable(onClick = { onClick(animal) })
+                .padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 8.dp)
+        ) {
+            AnimalImage(animal.url, modifier = Modifier.aspectRatio(1f))
             Column(
                 modifier = Modifier
-                    .padding(8.dp)
+                    .padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 8.dp)
                     .fillMaxWidth()
             ) {
-                Text(animal.name)
+                Text(
+                    text = animal.name,
+                    style = MaterialTheme.typography.subtitle1,
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 1
+                )
+                Text(
+                    text = animal.city,
+                    style = MaterialTheme.typography.caption,
+                    maxLines = 1
+                )
+                Text(
+                    text = animal.gender,
+                    style = MaterialTheme.typography.caption,
+                    maxLines = 1
+                )
             }
         }
     }
