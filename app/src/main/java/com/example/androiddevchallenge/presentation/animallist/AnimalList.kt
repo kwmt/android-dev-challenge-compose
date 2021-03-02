@@ -50,7 +50,10 @@ private fun AnimalItem(animal: Animal, onClick: (Animal) -> Unit, modifier: Modi
     Surface(
         modifier = modifier
     ) {
-        Row(modifier = Modifier.clickable(onClick = { onClick(animal) })) {
+        Row(modifier = Modifier
+            .clickable(onClick = { onClick(animal) })
+            .padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 8.dp)
+        ) {
             AnimalImage(animal.url, modifier = Modifier.aspectRatio(1f))
             Column(
                 modifier = Modifier
