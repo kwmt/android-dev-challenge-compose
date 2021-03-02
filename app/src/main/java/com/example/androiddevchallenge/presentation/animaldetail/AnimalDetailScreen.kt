@@ -41,7 +41,6 @@ import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.platform.LocalDensity
@@ -317,6 +316,8 @@ private fun PreviewAnimalDetailScreen() {
                 "gender",
                 "#ffffff",
                 "https://images.dog.ceo/breeds/hound-ibizan/n02091244_440.jpg"
-            ), upPress = { /*TODO*/ })
+            ),
+            upPress = { /*TODO*/ }
+        )
     }
 }
