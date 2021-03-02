@@ -59,6 +59,7 @@ import com.example.androiddevchallenge.ui.theme.MyTheme
 import com.example.androiddevchallenge.ui.theme.Neutral8
 import com.example.androiddevchallenge.ui.theme.Ocean3
 import com.example.androiddevchallenge.ui.theme.Shadow3
+import dev.chrisbanes.accompanist.insets.navigationBarsPadding
 import dev.chrisbanes.accompanist.insets.statusBarsPadding
 import kotlin.math.max
 import kotlin.math.min
@@ -197,7 +198,11 @@ private fun Body(animal: Animal, scroll: ScrollState) {
                         text = animal.description,
                         modifier = HzPadding
                     )
-                    Spacer(Modifier.height(16.dp))
+                    Spacer(
+                        Modifier
+                            .navigationBarsPadding(left = false, right = false)
+                            .height(16.dp)
+                    )
                 }
             }
         }
