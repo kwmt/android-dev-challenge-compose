@@ -1,18 +1,21 @@
 # Put title of your app here
-
+Pet Planet
 <!--- Replace <OWNER> with your Github Username and <REPOSITORY> with the name of your repository. -->
 <!--- You can find both of these in the url bar when you open your repository in github. -->
-![Workflow result](https://github.com/<OWNER>/<REPOSITORY>/workflows/Check/badge.svg)
+![Workflow result](https://github.com/kwmt/android-dev-challenge-compose/workflows/Check/badge.svg)
 
 
 ## :scroll: Description
 <!--- Describe your app in one or two sentences -->
-
+This app is to adopt a pet for make your life more happier!
 
 ## :bulb: Motivation and Context
 <!--- Optionally point readers to interesting parts of your submission. -->
 <!--- What are you especially proud of? -->
 
+I used this design from Jetsnack as motivation:
+
+https://github.com/android/compose-samples/tree/main/Jetsnack
 
 ## :camera_flash: Screenshots
 <!-- You can add more screenshots here if you like -->
