@@ -20,6 +20,8 @@ https://github.com/android/compose-samples/tree/main/Jetsnack
 ## :camera_flash: Screenshots
 <!-- You can add more screenshots here if you like -->
 <img src="/results/screenshot_1.png" width="260">&emsp;<img src="/results/screenshot_2.png" width="260">
+<img src="/results/screenshot_1_dark.png" width="260">&emsp;<img src="/results/screenshot_2_dark.png" width="260">
+<img src="/results/detail_scrolled.png" width="260">
 
 ## License
 ```
