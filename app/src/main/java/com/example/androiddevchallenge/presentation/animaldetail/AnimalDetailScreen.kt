@@ -66,7 +66,7 @@ import kotlin.math.min
 
 private val GradientScroll = 180.dp
 private val ImageOverlap = 115.dp
-private val MinTitleOffset = 56.dp
+private val MinTitleOffset = 72.dp
 private val MinImageOffset = 12.dp
 private val MaxTitleOffset = ImageOverlap + MinTitleOffset + GradientScroll
 
