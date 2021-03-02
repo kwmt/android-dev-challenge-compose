@@ -67,7 +67,8 @@ private fun AnimalItem(animal: Animal, onClick: (Animal) -> Unit, modifier: Modi
                     text = animal.name,
                     style = MaterialTheme.typography.subtitle1,
                     fontWeight = FontWeight.Bold,
-                    maxLines = 1
+                    maxLines = 1,
+                    modifier = Modifier.padding(bottom = 4.dp)
                 )
                 Text(
                     text = animal.city,
