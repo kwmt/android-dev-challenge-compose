@@ -33,21 +33,19 @@ private val DarkColorPalette = DevChallengeColors(
 //    primaryVariant = purple700,
 //    secondary = teal200
 )
-
 private val LightColorPalette = DevChallengeColors(
     uiBackground = Neutral0,
 //    primary = purple500,
 //    primaryVariant = purple700,
 //    secondary = teal200
-
-        /* Other default colors to override
-    background = Color.White,
-    surface = Color.White,
-    onPrimary = Color.White,
-    onSecondary = Color.Black,
-    onBackground = Color.Black,
-    onSurface = Color.Black,
-    */
+    /* Other default colors to override
+background = Color.White,
+surface = Color.White,
+onPrimary = Color.White,
+onSecondary = Color.Black,
+onBackground = Color.Black,
+onSurface = Color.Black,
+*/
 )
 
 @Composable
@@ -67,13 +65,15 @@ fun MyTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() (
         )
     }
 }
+
 object DevChallengeTheme {
     val colors: DevChallengeColors
         @Composable
         get() = LocalDevChallengeColors.current
 }
+
 @Stable
-class DevChallengeColors(uiBackground: Color,) {
+class DevChallengeColors(uiBackground: Color) {
     var uiBackground by mutableStateOf(uiBackground)
         private set
 
